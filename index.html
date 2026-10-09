@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Orhan India | Online Ordering & Flame-Grilled Whopper®</title>
+  <meta name="description" content="Order flame-grilled Whoppers®, King Combos, Crispy Veg Burgers from ₹79, and Peri Peri Fries online at Orhan India. Fast delivery to your doorstep.">
+  <meta name="theme-color" content="#d62300">
+
+  <!-- Google Fonts: Syne, Plus Jakarta Sans, Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <!-- Ambient Golden Sparkle Canvas -->
+  <canvas id="ember-canvas"></canvas>
+
+  <!-- Top Utility Bar (Location & Order Mode) - Burger King India Style -->
+  <div class="top-utility-bar">
+    <div class="container utility-wrapper">
+      <div class="location-picker">
+        <span class="loc-pin-icon">📍</span>
+        <span class="loc-label-text">Delivering to:</span>
+        <select id="location-dropdown" class="loc-select" aria-label="Select delivery location">
+          <option value="Connaught Place, New Delhi">Connaught Place, New Delhi</option>
+          <option value="Bandra West, Mumbai">Bandra West, Mumbai</option>
+          <option value="Indiranagar, Bengaluru">Indiranagar, Bengaluru</option>
+          <option value="Cyber Hub, Gurugram">Cyber Hub, Gurugram</option>
+          <option value="Koramangala, Bengaluru">Koramangala, Bengaluru</option>
+          <option value="Jubilee Hills, Hyderabad">Jubilee Hills, Hyderabad</option>
+          <option value="FC Road, Pune">FC Road, Pune</option>
+          <option value="Park Street, Kolkata">Park Street, Kolkata</option>
+        </select>
+      </div>
+
+      <div class="order-mode-switcher">
+        <button class="order-mode-btn active" data-mode="delivery">🛵 Delivery</button>
+        <button class="order-mode-btn" data-mode="dine-in">🍽️ Dine-In</button>
+        <button class="order-mode-btn" data-mode="takeaway">🛍️ Takeaway</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="main-header" id="main-header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo" aria-label="Orhan Burger Home">
+        <div class="logo-badge">🔥</div>
+        <div class="brand-text">
+          ORHAN
+          <span class="brand-sub">BURGER HOUSE • INDIA</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li class="mobile-menu-brand-header">
+            <div class="mobile-drawer-top">
+              <span class="drawer-logo-title">🔥 ORHAN BURGER</span>
+              <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close menu">✕</button>
+            </div>
+            <div class="drawer-location-info">
+              <span>📍 Nearest: <strong id="mobile-drawer-loc">Connaught Place, New Delhi</strong></span>
+            </div>
+          </li>
+          <li><a href="#menu-catalog" class="nav-link"><span>🍔 Menu & Deals</span><span class="nav-arrow">→</span></a></li>
+          <li><a href="#custom-builder" class="nav-link"><span>👑 Customise Whopper®</span><span class="nav-arrow">→</span></a></li>
+          <li><a href="#secret-grill" class="nav-link"><span>🔥 Flame Grill Lab</span><span class="nav-arrow">→</span></a></li>
+          <li><a href="#table-booking" class="nav-link"><span>🍽️ Book Dine-In</span><span class="nav-arrow">→</span></a></li>
+          <li class="mobile-drawer-footer">
+            <div class="mobile-king-deal-pill">
+              <span>👑 Flat 40% Off with code <strong>KING50</strong></span>
+            </div>
+            <div class="mobile-contact-line">
+              <span>📞 Helpline: 1800-209-ORHAN</span>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="nav-actions">
+        <!-- King Deals Pill -->
+        <a href="#deals-strip" class="offers-pill-link">
+          <span>👑</span>
+          <span class="offers-pill-text">King Deals</span>
+        </a>
+
+        <!-- Cart Button in BK Red -->
+        <button class="cart-toggle-btn" aria-label="Open Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="cart-btn-label">Cart</span>
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Backdrop Overlay -->
+  <div class="nav-backdrop" id="nav-backdrop"></div>
+
+  <!-- Promotional Hero Banner Carousel (BK India Deals Carousel) -->
+  <section class="promo-carousel-section">
+    <div class="container promo-carousel-container">
+      <button class="carousel-arrow prev" id="banner-prev-btn" aria-label="Previous slide">❮</button>
+      <button class="carousel-arrow next" id="banner-next-btn" aria-label="Next slide">❯</button>
+
+      <div class="promo-banners-track" id="promo-banners-track">
+        <!-- Slide 1: Whopper Wednesday -->
+        <div class="promo-banner-slide slide-1">
+          <div>
+            <span class="banner-badge">👑 WHOPPER® SPECIAL</span>
+            <h2 class="banner-title">FLAT 40% OFF ON SIGNATURE WHOPPERS®</h2>
+            <p class="banner-desc">
+              100% flame-grilled double chicken & mutton patties with melted cheese and fresh crisp lettuce. Use code <strong>KING50</strong> at checkout!
+            </p>
+            <a href="#menu-catalog" class="btn-secondary" style="background:#fff; color:var(--bk-red); border:none;">
+              Order Whopper® Now →
+            </a>
+          </div>
+          <div class="banner-img-wrap">
+            <img src="assets/images/orhan-hero-burger.jpg" alt="The Sultan Whopper" class="banner-img"/>
+          </div>
+        </div>
+
+        <!-- Slide 2: Value Range -->
+        <div class="promo-banner-slide slide-2">
+          <div>
+            <span class="banner-badge">💰 STARTING @ ₹79</span>
+            <h2 class="banner-title">CRISPY FLAME VALUE BURGERS</h2>
+            <p class="banner-desc">
+              Crispy Veg Double Patty, Classic Crispy Chicken, and Aloo Tikki Twist. Supreme taste at an unbeatable everyday price.
+            </p>
+            <a href="#menu-catalog" class="btn-secondary" style="background:#fff; color:var(--bk-dark); border:none;">
+              Explore Value Burgers →
+            </a>
+          </div>
+          <div class="banner-img-wrap">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80" alt="Value Burgers" class="banner-img"/>
+          </div>
+        </div>
+
+        <!-- Slide 3: King Meals -->
+        <div class="promo-banner-slide slide-3">
+          <div>
+            <span class="banner-badge">🍟 COMPLETE MEALS</span>
+            <h2 class="banner-title">UPGRADE TO A KING COMBO FOR ₹99</h2>
+            <p class="banner-desc">
+              Get our famous Peri Peri Fries Shaker plus chilled Coca-Cola with any Whopper® or burger of your choice.
+            </p>
+            <a href="#menu-catalog" class="btn-primary" style="background:var(--bk-yellow); color:var(--bk-dark);">
+              Order King Meal →
+            </a>
+          </div>
+          <div class="banner-img-wrap">
+            <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80" alt="King Meals and Peri Peri Fries" class="banner-img"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky BK India Categories Strip Navigation -->
+  <section class="categories-nav-section" id="categories-nav">
+    <div class="container categories-scroll-wrapper" id="bk-categories-strip">
+      <!-- Populated dynamically by main.js with icons & names -->
+    </div>
+  </section>
+
+  <!-- Main Menu Catalog Section -->
+  <section class="section" id="menu-catalog" style="padding-top: 2rem;">
+    <div class="container">
+      
+      <!-- Veg / Non-Veg Diet Filter & Search Bar -->
+      <div class="menu-controls-header">
+        <div class="diet-toggle-group">
+          <button class="diet-filter-btn active" data-diet="all">All Items</button>
+          <button class="diet-filter-btn" data-diet="veg">
+            <span class="diet-icon-badge veg" style="position:static; width:14px; height:14px; box-shadow:none;">
+              <span class="diet-dot" style="width:6px; height:6px;"></span>
+            </span>
+            <span>Veg Only</span>
+          </button>
+          <button class="diet-filter-btn" data-diet="non-veg">
+            <span class="diet-icon-badge non-veg" style="position:static; width:14px; height:14px; box-shadow:none;">
+              <span class="diet-dot" style="width:6px; height:6px;"></span>
+            </span>
+            <span>Non-Veg Only</span>
+          </button>
+        </div>
+
+        <div class="search-box-wrap">
+          <svg class="search-icon-inside" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="menu-search-input" class="search-input" placeholder="Search Whopper®, Fries, Shakes...">
+        </div>
+      </div>
+
+      <!-- Burger King India Style Menu Grid -->
+      <div class="menu-grid" id="menu-items-grid"></div>
+
+    </div>
+  </section>
+
+  <!-- King Deals & Coupons Strip -->
+  <section class="section" id="deals-strip" style="background: var(--bg-cream); padding: 3rem 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <span class="section-tag">👑 EXCLUSIVE KING OFFERS</span>
+        <h2 class="section-title">TODAY'S <span class="accent-red">COUPONS & DEALS</span></h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Coupon 1 -->
+        <div style="background:#fff; border: 1.5px dashed var(--bk-red); border-radius: var(--radius-md); padding: 1.5rem; position: relative;">
+          <span style="background: var(--bk-red); color:#fff; font-size:0.75rem; font-weight:800; padding: 0.2rem 0.6rem; border-radius: var(--radius-full);">FLAT ₹100 OFF</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0.6rem 0 0.3rem;">Use Code: KING50</h3>
+          <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Flat ₹100 discount on all orders above ₹299.</p>
+          <button class="btn-primary" style="padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="orhanCart.applyPromo('KING50'); orhanCart.openDrawer();">Apply Code</button>
+        </div>
+
+        <!-- Coupon 2 -->
+        <div style="background:#fff; border: 1.5px dashed var(--bk-yellow); border-radius: var(--radius-md); padding: 1.5rem; position: relative;">
+          <span style="background: var(--bk-yellow); color:var(--bk-dark); font-size:0.75rem; font-weight:800; padding: 0.2rem 0.6rem; border-radius: var(--radius-full);">FREE FRIES</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0.6rem 0 0.3rem;">Use Code: FREEFRIES</h3>
+          <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Complimentary King Peri Peri Fries worth ₹119.</p>
+          <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="orhanCart.applyPromo('FREEFRIES'); orhanCart.openDrawer();">Apply Code</button>
+        </div>
+
+        <!-- Coupon 3 -->
+        <div style="background:#fff; border: 1.5px dashed var(--bk-brown); border-radius: var(--radius-md); padding: 1.5rem; position: relative;">
+          <span style="background: var(--bk-brown); color:#fff; font-size:0.75rem; font-weight:800; padding: 0.2rem 0.6rem; border-radius: var(--radius-full);">CROWN VIP</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0.6rem 0 0.3rem;">Use Code: ORHANVIP</h3>
+          <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Flat 20% discount on total cart value.</p>
+          <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="orhanCart.applyPromo('ORHANVIP'); orhanCart.openDrawer();">Apply Code</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Whopper® Builder Section (BK India Style Customizer) -->
+  <section class="section builder-section" id="custom-builder">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem;">
+        <span class="section-tag">🍔 MAKE IT YOUR WAY</span>
+        <h2 class="section-title">CUSTOMISE YOUR <span class="accent-red">WHOPPER®</span></h2>
+        <p class="section-subtitle" style="margin: 0 auto;">
+          Choose your freshly toasted bun, flame-grilled patty, molten cheese layer, and crunchy toppings to create your personalized masterpiece.
+        </p>
+      </div>
+
+      <!-- Presets Bar -->
+      <div class="builder-presets-bar" style="justify-content: center;">
+        <span style="font-family: var(--font-accent); font-size: 0.85rem; color: var(--text-muted); font-weight: 800;">FAVOURITE RECIPES:</span>
+        <button class="preset-chip-btn active" data-preset="royal-carnivore">👑 The Sultan Chicken Whopper®</button>
+        <button class="preset-chip-btn" data-preset="black-truffle-dream">🌱 Double Crispy Veg Whopper®</button>
+        <button class="preset-chip-btn" data-preset="firecracker-rebel">🔥 Fiery Hell Mutton Melt</button>
+      </div>
+
+      <div class="builder-layout-grid">
+        <!-- Selectors Panel -->
+        <div class="builder-selector-panel">
+          <!-- Buns -->
+          <div class="builder-group">
+            <h3 class="builder-group-title">
+              1. Choose Toasted Bun <span class="group-badge">(Pick 1)</span>
+            </h3>
+            <div class="ingredients-options-grid" id="builder-buns"></div>
+          </div>
+
+          <!-- Patties -->
+          <div class="builder-group">
+            <h3 class="builder-group-title">
+              2. Choose Flame-Grilled Patty <span class="group-badge">(Pick 1)</span>
+            </h3>
+            <div class="ingredients-options-grid" id="builder-patties"></div>
+          </div>
+
+          <!-- Cheeses -->
+          <div class="builder-group">
+            <h3 class="builder-group-title">
+              3. Melted Cheese Slice & Lava <span class="group-badge">(Select Cheese)</span>
+            </h3>
+            <div class="ingredients-options-grid" id="builder-cheeses"></div>
+          </div>
+
+          <!-- Toppings -->
+          <div class="builder-group">
+            <h3 class="builder-group-title">
+              4. Crunchy Fresh Toppings <span class="group-badge">(Add toppings)</span>
+            </h3>
+            <div class="ingredients-options-grid" id="builder-toppings"></div>
+          </div>
+
+          <!-- Sauces -->
+          <div class="builder-group">
+            <h3 class="builder-group-title">
+              5. Signature Sauces <span class="group-badge">(Add sauces)</span>
+            </h3>
+            <div class="ingredients-options-grid" id="builder-sauces"></div>
+          </div>
+        </div>
+
+        <!-- Live Preview Stage -->
+        <div class="builder-preview-stage">
+          <div class="stage-header-line">
+            <h3 class="stage-title">Whopper® Live Stack</h3>
+            <span class="stage-layer-count" id="builder-layer-count">6 Layers</span>
+          </div>
+
+          <div class="burger-visual-canvas" id="burger-visual-stack"></div>
+
+          <div class="stage-summary-box">
+            <div class="summary-metric">
+              <span class="metric-label">Energy</span>
+              <span class="metric-val" id="builder-total-cal">580 kcal</span>
+            </div>
+            <div class="summary-metric" style="text-align: right;">
+              <span class="metric-label">Item Total</span>
+              <span class="metric-val red" id="builder-total-price">₹219</span>
+            </div>
+          </div>
+
+          <button class="btn-primary" id="btn-add-custom-burger" style="margin-top: 1.5rem; width: 100%;">
+            <span>Add Custom Whopper® To Cart</span>
+            <span>+</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Secret Flame Grill Lab -->
+  <section class="section grill-section" id="secret-grill">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">
+        <span class="section-tag">🔥 800°F CHARCOAL FLAME</span>
+        <h2 class="section-title">THE SECRET <span class="accent-red">FLAME GRILL LAB</span></h2>
+        <p class="section-subtitle" style="margin: 0 auto;">
+          Unlike ordinary flat-top fried burgers, we flame-grill our patties so fat melts away and authentic smoky barbecue flavor is locked in. Test the grill heat and flip the patty!
+        </p>
+      </div>
+
+      <div class="grill-card-interactive">
+        <div class="grill-view-screen">
+          <div class="grill-grate-lines"></div>
+          <div class="grill-embers-glow" id="sim-grill-flames"></div>
+          <div class="sim-patty" id="sim-grill-patty" title="Click to flip patty"></div>
+        </div>
+
+        <div class="grill-controls-row">
+          <div class="grill-temp-meter">
+            <div class="grill-meter-header">
+              <span>Flame-Grill Temperature</span>
+              <span class="grill-temp-number" id="grill-temp-val">750°F</span>
+            </div>
+            <input type="range" min="350" max="950" value="750" class="custom-slider" id="grill-temp-slider">
+            <div class="grill-sear-tag" id="grill-sear-status">WHOPPER FLAME SEAR (450°F - 700°F)</div>
+          </div>
+
+          <div>
+            <button class="btn-primary" id="btn-flip-patty">
+              <span>Flip Flame Patty</span>
+              <span>🔄</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Dine-In Section -->
+  <section class="section" id="table-booking" style="background: var(--bg-cream);">
+    <div class="container" style="text-align: center; max-width: 650px;">
+      <span class="section-tag">🍽️ RESTAURANT SERVICE</span>
+      <h2 class="section-title">VISIT AN <span class="accent-red">ORHAN RESTAURANT</span></h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Enjoy sizzling hot flame-grilled burgers freshly served at our restaurants across Delhi, Mumbai, Bengaluru, and Pune. Fast-track your table reservation online.
+      </p>
+      <button class="btn-primary open-reserve-btn" style="padding: 1rem 2.5rem; font-size: 1.05rem;">
+        Reserve A Table For Dine-In →
+      </button>
+    </div>
+  </section>
+
+  <!-- Floating Quick Cart Bar (Appears when items are in cart) -->
+  <div class="floating-cart-bar" id="floating-cart-bar" onclick="orhanCart.openDrawer()">
+    <div class="floating-cart-left">
+      <span class="floating-cart-count" id="floating-cart-count">1 ITEM</span>
+      <span class="floating-cart-total" id="floating-cart-total">₹219</span>
+    </div>
+    <div class="floating-cart-right">
+      <span>View Cart</span>
+      <span>→</span>
+    </div>
+  </div>
+
+  <!-- Footer - Burger King India Style -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 1rem;">
+            <div class="logo-badge" style="background: #fff; color: var(--bk-red); border: 2px solid var(--bk-yellow);">🔥</div>
+            <div class="brand-text" style="color: #fff;">
+              ORHAN
+              <span class="brand-sub" style="color: var(--bk-yellow);">BURGER HOUSE • INDIA</span>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Home of the signature flame-grilled Whopper®. Proudly serving authentic, fresh, and delicious meals across India.
+          </p>
+          <div style="font-size: 0.85rem; color: var(--bk-yellow); font-weight: 700;">
+            Customer Care: 1800-209-ORHAN | support@orhan.in
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Our Menu</h4>
+          <ul class="footer-links-list">
+            <li><a href="#menu-catalog">The Sultan Whopper®</a></li>
+            <li><a href="#menu-catalog">Value Burgers from ₹79</a></li>
+            <li><a href="#menu-catalog">King Combos & Meals</a></li>
+            <li><a href="#menu-catalog">Peri Peri Fries & Sides</a></li>
+            <li><a href="#menu-catalog">BK Cafe & Thick Shakes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">About & Policies</h4>
+          <ul class="footer-links-list">
+            <li><a href="#">Flame-Grilling Technique</a></li>
+            <li><a href="#">Nutritional & Allergen Info</a></li>
+            <li><a href="#">FSSAI Food Safety Charter</a></li>
+            <li><a href="#">Crown Loyalty Rewards</a></li>
+            <li><a href="#">Restaurant Locator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">King Deals Alert</h4>
+          <p style="font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-bottom: 0.9rem;">
+            Subscribe to receive exclusive Whopper Wednesday discounts and secret promo codes.
+          </p>
+          <div style="display: flex; gap: 0.4rem;">
+            <input type="email" placeholder="Enter mobile / email" style="flex:1; padding:0.6rem 0.9rem; border-radius: var(--radius-full); border:none; font-size:0.85rem;">
+            <button class="btn-primary" style="padding:0.6rem 1rem; background: var(--bk-yellow); color: var(--bk-dark);" onclick="orhanCart.showToast('Subscribed to King Deals!')">Join</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 ORHAN BURGER HOUSE INDIA LTD. All Rights Reserved. FSSAI Lic. No: 10014022002634.</div>
+        <div style="display:flex; gap:1.2rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Out Cart Drawer (Burger King India Style) -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3 class="cart-drawer-title">
+        <span>🍔</span>
+        <span>My Cart</span>
+      </h3>
+      <button class="cart-drawer-close" id="close-cart-btn" aria-label="Close cart">✕</button>
+    </div>
+
+    <div class="cart-delivery-badge">
+      <span>📍 Delivering to:</span>
+      <strong id="cart-deliv-loc">Connaught Place, New Delhi</strong>
+    </div>
+
+    <!-- Items List -->
+    <div class="cart-items-list" id="cart-items-list"></div>
+
+    <!-- Drawer Footer Billing Breakdown -->
+    <div class="cart-drawer-footer">
+      <!-- Crown Rewards Bar -->
+      <div class="crown-rewards-bar">
+        <span>👑</span>
+        <div>You will earn <strong id="cart-crowns-earned">22 Crowns</strong> on this order!</div>
+      </div>
+
+      <!-- Tip Selector -->
+      <div class="tip-selection-row">
+        <span class="tip-label">Delivery Partner Tip:</span>
+        <div class="tip-chips-group">
+          <button class="tip-chip" data-tip="20">₹20</button>
+          <button class="tip-chip active" data-tip="30">₹30</button>
+          <button class="tip-chip" data-tip="50">₹50</button>
+          <button class="tip-chip" data-tip="0">None</button>
+        </div>
+      </div>
+
+      <!-- Promo Code Input -->
+      <div class="promo-input-group">
+        <input type="text" id="promo-input" class="promo-input" placeholder="Enter coupon (e.g. KING50)">
+        <button class="promo-apply-btn" id="apply-promo-btn">Apply</button>
+      </div>
+      <span class="promo-status-msg" id="promo-status-msg"></span>
+
+      <!-- Financial Totals -->
+      <div class="cart-calc-line">
+        <span>Item Total:</span>
+        <span id="cart-subtotal">₹0</span>
+      </div>
+      <div class="cart-calc-line" id="cart-discount-row" style="display: none; color: var(--veg-green);">
+        <span>King Discount:</span>
+        <span id="cart-discount">-₹0</span>
+      </div>
+      <div class="cart-calc-line">
+        <span>Delivery Fee (Free above ₹299):</span>
+        <span id="cart-delivery">₹39</span>
+      </div>
+      <div class="cart-calc-line">
+        <span>Taxes & Restaurant Charges (5% GST):</span>
+        <span id="cart-gst">₹0</span>
+      </div>
+      <div class="cart-calc-line">
+        <span>Delivery Partner Tip:</span>
+        <span id="cart-tip">₹30</span>
+      </div>
+
+      <div class="cart-total-line">
+        <span>To Pay:</span>
+        <span class="cart-total-amount" id="cart-total">₹0</span>
+      </div>
+
+      <button class="btn-primary" id="cart-checkout-btn" style="width: 100%;">
+        <span>Proceed To Pay</span>
+        <span>→</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="close-checkout-btn" aria-label="Close modal">✕</button>
+      <div id="checkout-modal-content">
+        <h2 style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 0.3rem;">Confirm Delivery Address</h2>
+        <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1.5rem;">Fast delivery in 25-30 minutes from your nearest Orhan restaurant.</p>
+
+        <form id="checkout-form">
+          <div class="form-group">
+            <label class="form-label" for="order-cust-name">Full Name</label>
+            <input type="text" id="order-cust-name" class="form-control" required placeholder="Your Name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="order-cust-address">Delivery Address</label>
+            <input type="text" id="order-cust-address" class="form-control" required placeholder="Flat / House No., Tower, Street, Landmark...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Order Items Preview</label>
+            <div id="modal-items-summary" style="font-size: 0.85rem; color: var(--text-secondary); max-height: 120px; overflow-y: auto; margin-bottom: 0.5rem;"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Payment Method</label>
+            <div class="payment-options-row">
+              <div class="payment-chip active">📱 UPI / GPay / Paytm</div>
+              <div class="payment-chip">💳 Cards / NetBanking</div>
+              <div class="payment-chip">💵 Cash on Delivery</div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0;">
+            <span style="font-family: var(--font-accent); font-weight: 700;">Total Payable:</span>
+            <span style="font-family: var(--font-display); font-size: 1.7rem; font-weight: 900; color: var(--bk-red);" id="modal-summary-total">₹0</span>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; padding: 1rem;">
+            <span>Place Order Now</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Tasting Details Modal -->
+  <div class="modal-overlay" id="product-detail-modal">
+    <div class="modal-card" style="max-width: 780px;">
+      <button class="modal-close-btn" id="close-product-modal" aria-label="Close modal">✕</button>
+      <div id="product-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Dine-In Reservation Modal -->
+  <div class="modal-overlay" id="reserve-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="close-reserve-btn" aria-label="Close modal">✕</button>
+      <h2 style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 0.4rem;">Book Dine-In Table</h2>
+      <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1.5rem;">Skip the queue at your nearest Orhan restaurant.</p>
+
+      <form id="reserve-form">
+        <div class="form-group">
+          <label class="form-label" for="reserve-name">Your Name</label>
+          <input type="text" id="reserve-name" class="form-control" required placeholder="Enter Name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reserve-city">Select Restaurant</label>
+          <select id="reserve-city" class="form-control">
+            <option value="Connaught Place, New Delhi">Connaught Place, New Delhi</option>
+            <option value="Bandra West, Mumbai">Bandra West, Mumbai</option>
+            <option value="Indiranagar, Bengaluru">Indiranagar, Bengaluru</option>
+            <option value="Cyber Hub, Gurugram">Cyber Hub, Gurugram</option>
+            <option value="Koramangala, Bengaluru">Koramangala, Bengaluru</option>
+            <option value="FC Road, Pune">FC Road, Pune</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="reserve-date">Date</label>
+            <input type="date" id="reserve-date" class="form-control" required value="2026-10-15">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reserve-guests">Guests</label>
+            <select id="reserve-guests" class="form-control">
+              <option value="2">2 Persons</option>
+              <option value="4">4 Persons</option>
+              <option value="6">6 Persons (Family Table)</option>
+              <option value="8+">8+ Party</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem;">
+          Confirm Dine-In Booking
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="src/data/products.js"></script>
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/js/particles.js"></script>
+  <script src="assets/js/builder.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
