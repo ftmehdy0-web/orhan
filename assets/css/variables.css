@@ -1,0 +1,59 @@
+/**
+ * Orhan Burger House - Design Tokens (Burger King India Inspired)
+ * Flame Red, Cheddar Amber, Deep Charcoal Brown, Clean White Canvas.
+ */
+
+:root {
+  /* Brand Primary Colors */
+  --bk-red: #d62300;
+  --bk-red-hover: #b81e00;
+  --bk-orange: #ed7700;
+  --bk-yellow: #f5a800;
+  --bk-brown: #502314;
+  --bk-dark: #2b1107;
+
+  /* Surfaces & Clean White */
+  --bg-primary: #ffffff;
+  --bg-secondary: #fbf9f6;
+  --bg-tertiary: #f4f2ee;
+  --bg-cream: #fbf5ea;
+  --bg-card: #ffffff;
+
+  /* Food Dietary Indicators */
+  --veg-green: #0f8a3c;
+  --nonveg-red: #d32f2f;
+
+  /* Dividers & Borders */
+  --border-subtle: #ece8e1;
+  --border-medium: #dfdad0;
+  --border-focus: #d62300;
+
+  /* Typography */
+  --text-primary: #2b1107;
+  --text-secondary: #5f544c;
+  --text-muted: #8c827a;
+  --text-brand: #d62300;
+
+  /* Font Families */
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Outfit', sans-serif;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 4px rgba(80, 35, 20, 0.06);
+  --shadow-sm: 0 3px 10px rgba(80, 35, 20, 0.08);
+  --shadow-md: 0 8px 24px rgba(80, 35, 20, 0.1);
+  --shadow-lg: 0 16px 40px rgba(80, 35, 20, 0.14);
+  --shadow-card: 0 4px 18px rgba(80, 35, 20, 0.07);
+
+  /* Transitions */
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+}
